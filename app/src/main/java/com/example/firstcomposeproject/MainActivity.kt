@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,20 +36,18 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-                InstagramProfileCard()
+             FirstComposeProjectTheme {
+                 Box(modifier = Modifier
+                     .fillMaxSize()
+                     .background(MaterialTheme.colorScheme.background)) {
+                     InstagramProfileCard()
+                 }
+
+             }
         }
     }
 }
 
-@Preview
-@Composable
-fun CardTest(){
-    Card(shape = RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp),
-        border = BorderStroke(1.dp, Color.Black)
-    ) {
-        Text(text = "Hello world!")
-    }
-}
 
 
 
