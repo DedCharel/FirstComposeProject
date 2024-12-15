@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -49,7 +50,11 @@ fun InstagramProfileCard() {
         )
         {
             Image(
-                modifier = Modifier.size(50.dp),
+                modifier = Modifier
+                    .size(60.dp)
+                    .clip(CircleShape)
+                    .background(Color.White)
+                    .padding(8.dp),
                 painter = painterResource(id = R.drawable.ic_instagram),
                 contentDescription = ""
             )
@@ -57,6 +62,19 @@ fun InstagramProfileCard() {
             UserStatistics("Posts", "6.950")
             UserStatistics("Followers", "436M")
             UserStatistics("Following", "76")
+        }
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(text = "Instagram",
+                fontSize = 32.sp,
+                fontFamily = FontFamily.Cursive,
+                fontWeight = FontWeight.Bold)
+            Text(text = "#YoursToMake",
+                fontSize = 14.sp)
+            Text(text = "www.facebook.com/emotional_health",
+                fontSize = 14.sp)
+            Button(shape = RoundedCornerShape(8.dp), onClick = { /*TODO*/ })  {
+                Text(text = "Follow")
+            }
         }
     }
 }
