@@ -32,15 +32,17 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.firstcomposeproject.InstagramModel
 import com.example.firstcomposeproject.MainViewModel
 import com.example.firstcomposeproject.R
 
 
 @Composable
 fun InstagramProfileCard(
-    viewModel:MainViewModel
+    model: InstagramModel,
+    onFollowedButtonClickListener: (InstagramModel) -> Unit
 ) {
-    val isFlowed = viewModel.isFollowing.observeAsState(false)
+
 
     Card(
         modifier = Modifier.padding(8.dp),
@@ -71,16 +73,16 @@ fun InstagramProfileCard(
             UserStatistics("Following", "76")
         }
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = "Instagram",
+            Text(text = "Instagram ${model.id}",
                 fontSize = 32.sp,
                 fontFamily = FontFamily.Cursive,
                 fontWeight = FontWeight.Bold)
-            Text(text = "#YoursToMake",
+            Text(text = "#${model.title}",
                 fontSize = 14.sp)
             Text(text = "www.facebook.com/emotional_health",
                 fontSize = 14.sp)
-            FollowButton(isFlowed) {
-                viewModel.changeFollowingStatus()
+            FollowButton(model.isFollowed) {
+                onFollowedButtonClickListener(model)
             }
         }
     }
@@ -88,14 +90,14 @@ fun InstagramProfileCard(
 
 @Composable
 fun FollowButton(
-    isFollowed: State<Boolean>,
+    isFollowed: Boolean,
     clickListener: () -> Unit
 ){
     Button(
         shape = RoundedCornerShape(8.dp),
         onClick = { clickListener()},
         colors = ButtonDefaults.buttonColors(
-            containerColor = if (isFollowed.value){
+            containerColor = if (isFollowed){
                 MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
             } else {
                 MaterialTheme.colorScheme.primary
@@ -103,7 +105,7 @@ fun FollowButton(
         )
     )
      {
-        val text = if (isFollowed.value){
+        val text = if (isFollowed){
             "Unfollow"
 
         } else {
